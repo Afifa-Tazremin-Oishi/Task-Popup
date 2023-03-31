@@ -1,23 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+
+function TermsAndConditionsPopup(props) {
+  const [showPopup, setShowPopup] = useState(true);
+
+  const handleAgreeClick = () => {
+    setShowPopup(false);
+    localStorage.setItem('showPopup', 'false');
+  }
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem('showPopup');
+    if (storedValue === 'false') {
+      setShowPopup(false);
+    }
+  }, []);
+
+  return (
+    <div >
+      <div className='myApp'>
+      <h1>Hello!!!</h1>
+      <h3>I am <span className='text-color'>Afifa Tazremin Oishi</span></h3>
+      </div>
+      {showPopup && (
+        <div className="terms-and-conditions-popup">
+          <p>Terms and conditions text goes here.</p>
+          <button className='beautiful-button' onClick={handleAgreeClick}>Agree</button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <TermsAndConditionsPopup />
+      
     </div>
   );
 }
